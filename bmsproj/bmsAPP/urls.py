@@ -5,9 +5,9 @@ from .models import *
 
 from . import views
 router = DefaultRouter()
-router.register('Client', views.ClientViewset.as_view,basename='clint')
-router.register('SubscriptionPlan', views.SubscriptionPlanViewset.as_view,basename='subplan')
-router.register('Subscription', views.SubscriptionViewset.as_view,basename='sub')
+router.register('Client', views.ClientViewset,basename='clint')
+router.register('SubscriptionPlan', views.SubscriptionPlanViewset,basename='subplan')
+router.register('Subscription', views.SubscriptionViewset,basename='sub')
 router.register('Metrics',views.MetricsViewset,basename='metri')
 
 urlpatterns = [

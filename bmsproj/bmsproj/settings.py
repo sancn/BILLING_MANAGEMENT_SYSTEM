@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #Third party_extensions
     'django_extensions',
     'rest_framework',
+    'django_q',
+
+    #my app 
     'bmsAPP',
 ]
 
@@ -124,3 +128,31 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# FOR testing email using mailtrap
+
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '43db08af82d901'
+EMAIL_HOST_PASSWORD = 'af35a0e9876606'
+EMAIL_PORT = '2525'
+
+
+
+# Configure django Q
+Q_CLUSTER = {
+    'name': 'bmsproj',
+    'workers': 8,
+    'recycle': 500,
+    'timeout': 60,
+    'compress': True,
+    'cpu_affinity': 1,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'label': 'Django Q',
+    'redis': {
+        'host': '127.0.0.1',
+        'port': 6379,
+        'db': 0, }
+}
