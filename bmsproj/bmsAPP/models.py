@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 # Regex validators for phonr number
 from django.core.validators import RegexValidator
@@ -19,9 +20,19 @@ class BaseModel(models.Model):
     Which gives the client detail"""
 
 ## Domain name validation 
+# def validate_domain(value):
+#     if not value.endswith('.realhrsoft.com.np'):
+#         raise ValidationError("Domain name should end with 'realhrsoft.com.np' and must be unique.")
+    
 def validate_domain(value):
+    # from .models import Client  
+    existing_domains = Client.objects.filter(domain=value)
+    if existing_domains.exists():
+        raise ValidationError("Domain name already exists.")
     if not value.endswith('.realhrsoft.com.np'):
         raise ValidationError("Domain name should end with 'realhrsoft.com.np'.")
+
+
 class Client(BaseModel):
     name=models.CharField(max_length=200)
     email=models.EmailField(max_length=200)
@@ -46,9 +57,7 @@ class Client(BaseModel):
         ('unveri','unverified'),
     )
     status=models.CharField(max_length=200,choices=verify_unverified_choices,default='unveri')
-
-    # def __str__(self):
-    #     return self.name
+   
     
 """This is Subscription plan model.
   It gives the no.of user in the organizATION AND 
