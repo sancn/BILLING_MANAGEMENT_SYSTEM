@@ -94,5 +94,4 @@ class Metrics(BaseModel):
     number_of_users = models.PositiveIntegerField()
     number_of_organizations = models.PositiveIntegerField()
 
-    # id=models.IntegerField(default=0,primary_key=True)
 

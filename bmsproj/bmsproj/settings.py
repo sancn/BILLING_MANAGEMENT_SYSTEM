@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'django_q',
-
+    'django_filters',
     #my app 
     'bmsAPP',
 ]
@@ -112,7 +112,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+
+#Adding Nepal Time Zone
+TIME_ZONE = 'Asia/Kathmandu'
+
 
 USE_I18N = True
 
