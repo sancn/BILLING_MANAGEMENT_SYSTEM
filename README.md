@@ -23,7 +23,9 @@ The Billing Management System offers the following features:
 - Filters
 ## Installation
 1. Clone the repository to your local machine or server:
+<pre>
    $ https://github.com/sancn/BILLING_MANAGEMENT_SYSTEM
+</pre>
  
 2. Navigate to the project directory:
    <prep>
