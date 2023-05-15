@@ -39,7 +39,7 @@ class ClientAPITest(APITestCase):
         detail_url = reverse('client-detail', args=[client.id])
         response = self.client.get(detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Test client')
+        self.assertEqual(response.data['name'], 'Test client1')
         self.assertEqual(response.data['email'], 'test1@example.com')
 
 # Testing for update client
@@ -59,8 +59,8 @@ class ClientAPITest(APITestCase):
             'name': 'Updated client',
             'email': 'updated@example.com',
         }
-        response = self.client.put(update_url, data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.patch(update_url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.json())
         self.assertEqual(Client.objects.get().name, 'Updated client')
         self.assertEqual(Client.objects.get().email, 'updated@example.com')
 

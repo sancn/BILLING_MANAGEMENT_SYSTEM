@@ -16,20 +16,12 @@ class BaseModel(models.Model):
     class Meta:
         abstract=True
 
-"""This is a client detail model
-    Which gives the client detail"""
-
-## Domain name validation 
-# def validate_domain(value):
-#     if not value.endswith('.realhrsoft.com.np'):
-#         raise ValidationError("Domain name should end with 'realhrsoft.com.np' and must be unique.")
-    
-def validate_domain(value):
+def validate_domain(domain):
     # from .models import Client  
-    existing_domains = Client.objects.filter(domain=value)
+    existing_domains = Client.objects.filter(domain=domain)
     if existing_domains.exists():
         raise ValidationError("Domain name already exists.")
-    if not value.endswith('.realhrsoft.com.np'):
+    if not domain.endswith('.realhrsoft.com.np'):
         raise ValidationError("Domain name should end with 'realhrsoft.com.np'.")
 
 
@@ -59,10 +51,6 @@ class Client(BaseModel):
     status=models.CharField(max_length=200,choices=verify_unverified_choices,default='unveri')
    
     
-"""This is Subscription plan model.
-  It gives the no.of user in the organizATION AND 
-  organization have a choices to choose model and 
-  price is based on pay per use model"""    
 class SubscriptionPlan(BaseModel):
     no_of_user=models.PositiveIntegerField()
     modules_choices=(
@@ -74,9 +62,7 @@ class SubscriptionPlan(BaseModel):
     module=models.CharField(choices=modules_choices,max_length=200)
     prices=models.DecimalField(max_digits=20,decimal_places=2)
 
-    
-"""SUbscription model inherits the client model
-   it also gives subscription status and interval of subscription"""
+
 class Subscription(BaseModel):
     client=models.OneToOneField(Client,on_delete=models.CASCADE)
     paid_due_choices=(
@@ -94,8 +80,7 @@ class Subscription(BaseModel):
     model_interval=models.CharField(choices=model_interval_choices,default='1',max_length=200)
     subscription_plan=models.OneToOneField(SubscriptionPlan,on_delete=models.CASCADE)
 
-"""This nodel calculate the Metrics of the pfrom django.core.validators import MinValueValidator
-roject"""
+
 class Metrics(BaseModel):
     client = models.OneToOneField(Client, on_delete=models.CASCADE)
     ram_usage = models.FloatField(validators=[MinValueValidator(0)],max_length=200)
