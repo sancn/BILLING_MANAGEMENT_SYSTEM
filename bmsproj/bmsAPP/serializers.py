@@ -7,16 +7,6 @@ class DefaulModelSerializer(serializers.ModelSerializer):
   @property
   def request(self):
       return self.context.get('request')
-  
-  # def validate(self, attrs):
-  #   #  user = self.context.user
-  #   user = self.request.user
-
-  #   return super().validate(attrs)
-  
-# ser = DefaulModelSerializer({'a':2,'b':5}, context={'request': self.request})
-# ser.is_valid()
-# ser.save()
 
 class ClientSerializer(DefaulModelSerializer):
     class Meta:

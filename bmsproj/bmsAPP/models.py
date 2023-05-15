@@ -49,6 +49,9 @@ class Client(BaseModel):
         ('unveri','unverified'),
     )
     status=models.CharField(max_length=200,choices=verify_unverified_choices,default='unveri')
+
+    def __str__(self):
+        return self.name
    
     
 class SubscriptionPlan(BaseModel):
@@ -61,6 +64,9 @@ class SubscriptionPlan(BaseModel):
     )
     module=models.CharField(choices=modules_choices,max_length=200)
     prices=models.DecimalField(max_digits=20,decimal_places=2)
+
+    def __str__(self):
+        return self.no_of_user
 
 
 class Subscription(BaseModel):
@@ -80,6 +86,9 @@ class Subscription(BaseModel):
     model_interval=models.CharField(choices=model_interval_choices,default='1',max_length=200)
     subscription_plan=models.OneToOneField(SubscriptionPlan,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.status
+
 
 class Metrics(BaseModel):
     client = models.OneToOneField(Client, on_delete=models.CASCADE)
@@ -87,5 +96,8 @@ class Metrics(BaseModel):
     hard_disk_usage = models.FloatField(validators=[MinValueValidator(0)],max_length=200)
     number_of_users = models.PositiveIntegerField()
     number_of_organizations = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.number_of_users
 
 
