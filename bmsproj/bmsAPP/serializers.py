@@ -29,3 +29,8 @@ class MetricsSerializer(DefaulModelSerializer):
     class Meta:
         model=Metrics
         fields='__all__'
+
+class HistorySerializer(DefaulModelSerializer):
+    class Meta:
+        model=History
+        fields='__all__'

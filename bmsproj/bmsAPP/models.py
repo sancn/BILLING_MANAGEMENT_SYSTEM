@@ -99,5 +99,7 @@ class Metrics(BaseModel):
 
     def __str__(self):
         return self.number_of_users
-
+    
+class History(BaseModel):
+    remarks=models.CharField(max_length=50)
 
