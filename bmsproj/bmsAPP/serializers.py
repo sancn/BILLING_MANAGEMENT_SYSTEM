@@ -9,9 +9,17 @@ class DefaulModelSerializer(serializers.ModelSerializer):
       return self.context.get('request')
 
 class ClientSerializer(DefaulModelSerializer):
+    # count=serializers.SerializerMethodField()
+    
+    # def get_count(self,obj):
+    #     return Client.objects.count()
+    
     class Meta:
         model=Client
         fields='__all__'
+        # fields = ['id', 'created_at', 'modified_at', 'name', 'email', 'contact', 'domain', 'expiry_date', 'organization_size', 'country', 'status', 'count']
+
+        
 
 class SubscriptionPlanSerializer(DefaulModelSerializer):
     class Meta:

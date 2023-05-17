@@ -17,14 +17,19 @@ class ClientViewset(viewsets.ModelViewSet):
     queryset=Client.objects.all()
     serializer_class=ClientSerializer
 
-   #  def create(self, request, *args, **kwargs):
-   #      serializer = self.get_serializer(data=request.data)
-   #      serializer.is_valid(raise_exception=True)
-   #      self.perform_create(serializer)
-   #      headers = self.get_success_headers(serializer.data)
-   #      return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
+    # adding new field to serializer
     
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
+        count = self.queryset.count()
+        response_data = response.data
+        response_data.append({"count": count})
+        response.data = response_data
+      #   response.data['count'] = count
+        return response
+
+
+    #Deleting data from serializer
     def destroy(self, request, *args, **kwargs):
       instance = self.get_object()
       History.objects.get_or_create(remarks=instance.name)
