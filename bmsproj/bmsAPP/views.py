@@ -11,6 +11,7 @@ from .models import History
 # importing filters
 from django_filters import rest_framework as filters
 from .filters import ClientFilter,SubscriptionFilter
+from rest_framework.decorators import action
 
 # Create your views here.
 class ClientViewset(viewsets.ModelViewSet):
@@ -34,7 +35,16 @@ class ClientViewset(viewsets.ModelViewSet):
       History.objects.get_or_create(remarks=instance.name)
       self.perform_destroy(instance)
       return Response({'msg':'Delete vayo gaich'},status=HTTP_204_NO_CONTENT)
+    
 
+    @action(detail=False, methods=['GET'],url_path='unverify')
+    def unverified(self, request):
+      unverified_client=self.queryset.filter(status='unveri')
+      serializer = ClientSerializer(unverified_client, many=True)
+      #  serializer=self.get_serializer(unverified_client,many=True)
+
+      return Response(serializer.data)
+   
     
 class SubscriptionPlanViewset(viewsets.ModelViewSet):
   queryset=SubscriptionPlan.objects.all()
