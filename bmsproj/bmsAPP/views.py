@@ -16,18 +16,17 @@ from .filters import ClientFilter,SubscriptionFilter
 class ClientViewset(viewsets.ModelViewSet):
     queryset=Client.objects.all()
     serializer_class=ClientSerializer
-
-    # adding new field to serializer
     
     def list(self, request, *args, **kwargs):
-        response = super().list(request, *args, **kwargs)
-        count = self.queryset.count()
-        response_data = response.data
-        response_data.append({"count": count})
-        response.data = response_data
-      #   response.data['count'] = count
-        return response
-
+       response = super().list(request, *args, **kwargs)
+       count = self.queryset.count()
+       small_count = self.queryset.filter(organization_size='s').count()
+       medium_count = self.queryset.filter(organization_size='m').count()
+       large_count = self.queryset.filter(organization_size='l').count()
+       response_data = response.data
+       response_data.extend([{"count": count, "small": small_count, "medium": medium_count, "large": large_count}])
+       response.data = response_data
+       return response
 
     #Deleting data from serializer
     def destroy(self, request, *args, **kwargs):
